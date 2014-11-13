@@ -28,7 +28,73 @@ public static class ControlFlow
 		}
 		_headers.Add(2, "result");
 	}
+	public static void EmptyIfTemp(string input, List<string> value, Dictionary<int, string> _headers)
+	{
+		bool flag = value.Contains("test");
+		if (flag)
+		{
+		}
+		_headers.Add(2, "result");
+	}
+	public static void EmptyIfTempLambda(string input, List<string> value, Dictionary<int, string> _headers)
+	{
+		bool flag = value.Contains("test");
+		bool flag2 = flag;
+		Action action = delegate
+		{
+			if (flag2) 
+			{
+			}
+		};
+		_headers.Add(2, "result");
+	}
+
+	public static void RefParameter(ref bool param)
+	{
+		bool flag = true;
+		bool flag2 = flag;
+		ControlFlow.RefParameter(ref flag);
+		flag2.ToString();
+		if (flag2)
+		{
+		}
+	}
+
+	public static void LoopTemporaries()
+	{
+		bool flag = true;
+		if (flag) 
+		{
+		}
+		for (int i = 0; i < 10; i++) 
+		{
+			flag = (i < 5);
+			if (flag)
+			{
+				break;
+			}
+		}
+	}
 	
+
+	public static void LoopTwoTemporaries()
+	{
+		bool flag = true;
+		bool flag2 = true;
+		if (flag) 
+		{
+		}
+		for (int i = 0; i < 10; i++) 
+		{
+			flag = (i < 5);
+			if (flag)
+			{
+				flag2 = flag;
+				break;
+			}
+		}
+		flag2.ToString();
+	}
 	public static void NormalIf(string input, List<string> value, Dictionary<int, string> _headers)
 	{
 		if (value.Contains("test"))
